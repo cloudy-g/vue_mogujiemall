@@ -1,6 +1,6 @@
 <template>
   <tab-bar>
-    <template #home>
+    <template>
       <tab-bar-item
         v-for="(item, index) in preference"
         :key="item.title"
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import TabBar from "@/components/common/TabBar/TabBar";
-import TabBarItem from "@/components/common/TabBar/TabBarItem";
+import TabBar from "@/components/common/tabBar/TabBar";
+import TabBarItem from "@/components/common/tabBar/TabBarItem";
 
 export default {
   name: "MainBar",

@@ -24,13 +24,12 @@ export default {
           return this.isActive ? {} : {color: this.activeColor}
       },
       isActive() {
-          return this.$route.path !== this.link
+        return this.$route.path.indexOf(this.link) == -1
       }
   },
   methods: {
     btnClick() {
-      this.$router.push(this.link);
-      this.$destroy
+      this.$router.replace(this.link);
     },
   },
 };

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import MainBar from '@/components/content/MainBar.vue'
+import MainBar from '@/components/content/mainBar/MainBar.vue'
 
 export default {
   name: 'App',
@@ -20,5 +20,4 @@ export default {
 
 <style lang="less">
 @import url('assets/css/base.less');
-
 </style>

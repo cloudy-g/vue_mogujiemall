@@ -1,0 +1,72 @@
+<template>
+  <div id="home-swiper">
+    <swiper :imgs="banners" :singleWidth="singleWidth">
+      <template v-slot:sliderShow>
+        <swiper-item>
+          <template v-slot:swiperItem>
+            <a :href="srcPartic1.link">
+              <img :src="srcPartic1.src" />
+            </a>
+          </template>
+        </swiper-item>
+        <swiper-item v-for="item in banners" :key="item.title">
+          <template v-slot:swiperItem>
+            <a :href="item.link">
+              <img :src="item.image" />
+            </a>
+          </template>
+        </swiper-item>
+        <swiper-item>
+          <template v-slot:swiperItem>
+            <a :href="srcPartic2.link">
+              <img :src="srcPartic2.src" />
+            </a>
+          </template>
+        </swiper-item>
+      </template>
+    </swiper>
+  </div>
+</template>
+
+<script>
+import { Swiper, SwiperItem } from "@/components/common/carousel";
+
+export default {
+  name: "HomeSwiper",
+  data() {
+    return {
+      srcPartic1: {
+          src: '',
+          link: '',
+      },
+      srcPartic2: {
+          src: '',
+          link: '',
+      },
+      singleWidth: 0
+    };
+  },
+  components: {
+    Swiper,
+    SwiperItem,
+  },
+  props: {
+    banners: Array,
+  },
+  beforeUpdate() {
+    this.srcPartic1.src = this.banners[this.banners.length - 1].image;
+    this.srcPartic1.link = this.banners[this.banners.length - 1].link;
+    this.srcPartic2.src = this.banners[0].image;
+    this.srcPartic2.link = this.banners[0].link;
+    this.singleWidth = window.innerWidth;
+  },
+};
+</script>
+
+<style lang="less">
+#home-swiper {
+  height: 195px;
+  width: 100%;
+  position: relative;
+}
+</style>
