@@ -36,14 +36,14 @@ export default {
   data() {
     return {
       srcPartic1: {
-          src: '',
-          link: '',
+        src: "",
+        link: "",
       },
       srcPartic2: {
-          src: '',
-          link: '',
+        src: "",
+        link: "",
       },
-      singleWidth: 0
+      singleWidth: 0,
     };
   },
   components: {
@@ -54,11 +54,16 @@ export default {
     banners: Array,
   },
   beforeUpdate() {
-    this.srcPartic1.src = this.banners[this.banners.length - 1].image;
-    this.srcPartic1.link = this.banners[this.banners.length - 1].link;
-    this.srcPartic2.src = this.banners[0].image;
-    this.srcPartic2.link = this.banners[0].link;
+    this.initImgs();
     this.singleWidth = window.innerWidth;
+  },
+  methods: {
+    initImgs() {
+      this.srcPartic1.src = this.banners[this.banners.length - 1].image;
+      this.srcPartic1.link = this.banners[this.banners.length - 1].link;
+      this.srcPartic2.src = this.banners[0].image;
+      this.srcPartic2.link = this.banners[0].link;
+    },
   },
 };
 </script>

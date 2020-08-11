@@ -42,9 +42,6 @@ export default {
     this.getGoodsList("news");
     this.getGoodsList("fashion");
   },
-  updated() {
-    //   this.getGoodsList(this.query.type, this.query.page);
-  },
   methods: {
     getGoodsList(type) {
       let page = this.goodsList[type].page;

@@ -10,7 +10,7 @@
       <slot name="sliderShow"></slot>
     </div>
     <ul class="slider-pointer">
-      <li :class="{active : setColor(index)}" v-for="(item,index) in imgs" v-bind:key="item.title"></li>
+      <li :class="{active : setColor(index)}" v-for="(item,index) in imgs" v-bind:key="index"></li>
     </ul>
   </div>
 </template>

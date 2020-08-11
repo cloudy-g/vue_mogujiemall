@@ -34,7 +34,7 @@ export default {
   methods: {
     btnClick(index) {
       this.currentIndex = index;
-      this.$emit('click', this.cards[index].type);
+      this.$emit('click', index);
     }
   },
 };
