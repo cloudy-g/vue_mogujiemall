@@ -15,7 +15,7 @@
     <scroll
       class="wrapper"
       ref="scroll"
-      :probeType="3"
+      :probeType="0"
       :pullUpLoad="true"
       @contentScroll="contentScroll"
       @loadMore="loadMore"
@@ -161,6 +161,8 @@ export default {
     left: 0;
 
     z-index: 9;
+
+    background-color: #ff8198;
   }
   .showTab {
     position: fixed;

@@ -10,6 +10,8 @@ const Category = () => import('@/views/category/Category.vue')
 const Cart = () => import('@/views/cart/Cart.vue')
 const Profile = () => import('@/views/profile/Profile.vue')
 
+const Details = () => import('@/views/details/Details.vue')
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,24 +22,6 @@ const routes = [
   {
     path: '/home',
     component: Home,
-    // children: [
-    //   {
-    //     path: '/',
-    //     redirect: 'fashion'
-    //   },
-    //   {
-    //     path: 'fashion',
-    //     component: Fashion,
-    //   },
-    //   {
-    //     path: 'news',
-    //     component: News,
-    //   },
-    //   {
-    //     path: 'handpick',
-    //     component: Handpick,
-    //   }
-    // ]
   },
   {
     path: '/cart',
@@ -50,6 +34,10 @@ const routes = [
   {
     path: '/profile',
     component: Profile
+  },
+  {
+    path: '/home/:iid',
+    component: Details
   }
 ]
 

@@ -14,13 +14,10 @@ export default {
 
 <style lang='less'>
 
-@homeNavColor:#ff8198;
-
 .nav-bar{
     height: 44px;
     line-height: 44px;
     display: flex;
-    background-color: @homeNavColor;
 
     .left,
     .right{

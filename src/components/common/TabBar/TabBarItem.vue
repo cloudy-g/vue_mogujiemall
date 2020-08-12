@@ -57,6 +57,7 @@ export default {
     height: 5px;
     border-radius: 5px;
     background-color: #ff4400;
+    // position: sticky;
   }
 }
 </style>
