@@ -1,41 +1,16 @@
 <template>
   <div class="item-details">
-    <details-nav-bar :iid="iid"></details-nav-bar>
-    <details-slide :itemData="bannerItem"></details-slide>
-    <details-item-info :info="itemInfo"></details-item-info>
-    <details-shop-info :shop="shopInfo"></details-shop-info>
-    <ul>
-      <li>libioa1</li>
-      <li>libioa2</li>
-      <li>libioa3</li>
-      <li>libioa4</li>
-      <li>libioa5</li>
-      <li>libioa6</li>
-      <li>libioa7</li>
-      <li>libioa8</li>
-      <li>libioa9</li>
-      <li>libioa10</li>
-      <li>libioa11</li>
-      <li>libioa12</li>
-      <li>libioa13</li>
-      <li>libioa14</li>
-      <li>libioa15</li>
-      <li>libioa16</li>
-      <li>libioa17</li>
-      <li>libioa18</li>
-      <li>libioa19</li>
-      <li>libioa20</li>
-      <li>libioa21</li>
-      <li>libioa22</li>
-      <li>libioa23</li>
-      <li>libioa24</li>
-      <li>libioa25</li>
-      <li>libioa26</li>
-      <li>libioa27</li>
-      <li>libioa28</li>
-      <li>libioa29</li>
-      <li>libioa30</li>
-    </ul>
+    <details-nav-bar @scrollToPosition="scrollToPosition" class="nav-bar" :iid="iid"></details-nav-bar>
+    <scroll class="content" ref="scroll" :probeType="3" @contentScroll="contentScroll">
+      <details-slide :itemData="bannerItem"></details-slide>
+      <details-item-info :info="itemInfo"></details-item-info>
+      <details-shop-info :shop="shopInfo"></details-shop-info>
+      <details-images :iamgeList="detailImages"></details-images>
+      <details-item-params ref="params" :itemParams="itemParams"></details-item-params>
+      <details-item-comments ref="comments" :itemComments="itemComments"></details-item-comments>
+    </scroll>
+    <back-top @click.native="backClick" v-show="isBack"></back-top>
+    <details-tab-bar></details-tab-bar>
   </div>
 </template>
 
@@ -44,13 +19,21 @@ import DetailsNavBar from "./childrenCom/DetailsNavBar";
 import DetailsSlide from "./childrenCom/DetailsSlide";
 import DetailsItemInfo from "./childrenCom/DetailsItemInfo";
 import DetailsShopInfo from "./childrenCom/DetailsShopInfo";
+import DetailsImages from "./childrenCom/DetailsImages";
+import DetailsItemParams from "./childrenCom/DetailsItemParams";
+import DetailsItemComments from "./childrenCom/DetailsItemComments";
+import DetailsTabBar from "./childrenCom/DetailsTabBar";
+
+import BackTop from "@/components/content/backTop/BackTop";
+import Scroll from "@/components/common/scroll/Scroll";
 
 import { getDetailsData } from "@/network/details";
+import { imgLoadMixin, backTopMixin } from "@/common/mixin";
 
 import {
   getBanners,
   getItemInfo,
-  getShopInfo
+  getShopInfo,
 } from "@/components/content/transformData/detailsData.js";
 
 export default {
@@ -60,28 +43,54 @@ export default {
       iid: null,
       bannerItem: [],
       itemInfo: {},
-      shopInfo: {}
+      shopInfo: {},
+      detailImages: [],
+      itemParams: {},
+      itemComments: {},
     };
   },
   components: {
     DetailsNavBar,
     DetailsSlide,
     DetailsItemInfo,
-    DetailsShopInfo
+    DetailsShopInfo,
+    Scroll,
+    DetailsImages,
+    DetailsItemParams,
+    DetailsItemComments,
+    BackTop,
+    DetailsTabBar,
   },
+  mixins: [imgLoadMixin, backTopMixin],
   created() {
     this.iid = this.$route.params.iid;
     this.getDetailsData(this.iid);
   },
-  activated() {},
   methods: {
     getDetailsData(iid) {
       getDetailsData(iid).then((res) => {
         let data = res.data.data.result;
         this.bannerItem.push(...getBanners(data));
+
         this.itemInfo = getItemInfo(data.itemInfo);
+
         this.shopInfo = getShopInfo(data.shopInfo);
+
+        let list = data.detailInfo.detailImage[0].list;
+        this.detailImages.push(...list);
+
+        this.itemParams = data.itemParams.info;
+
+        this.itemComments = data.rateInfo;
       });
+    },
+    getOffsetTop() {
+      let comment = this.$refs.comments.$el.offsetTop;
+      let params = this.$refs.params.$el.offsetTop;
+      this.itemOffsetTopY.splice(0, 3, 0, params, comment);
+    },
+    scrollToPosition(index) {
+      this.$refs.scroll.scrollTo(0, -this.itemOffsetTopY[index]+44, 100);
     },
   },
   watch: {
@@ -93,4 +102,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.item-details {
+  position: relative;
+  z-index: 999;
+  background-color: #fff;
+  height: 100vh;
+  border-bottom: 1rem solid #cccccc;
+
+  .content {
+    height: calc(100% - 93px);
+  }
+}
 </style>

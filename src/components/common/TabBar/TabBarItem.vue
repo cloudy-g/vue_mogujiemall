@@ -2,7 +2,7 @@
   <div @click="btnClick" :class="{'tab-bar-item': true, 'tab-bar-item-active': !isActive}" >
     <slot v-if="isActive" name="bar-icon"></slot>
     <slot v-else name="bar-icon-active"></slot>
-    <slot :actives="activeColors" name="bar-title"></slot>
+    <slot :actives="activeColors" name="bar-title"></slot>  
   </div>
 </template>
 

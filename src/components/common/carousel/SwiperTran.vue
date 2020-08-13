@@ -68,7 +68,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .swiper-tran{
     height: 100%;
     width: 100%;

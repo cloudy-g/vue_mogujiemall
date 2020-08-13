@@ -41,6 +41,7 @@ export default {
   methods: {
     changeClick(index) {
       this.currentIndex = index;
+      this.$emit('scrollToPosition', index);
     },
     backClick() {
       this.$router.go(-1);
@@ -53,6 +54,8 @@ export default {
 .detail-bar {
   background-color: #ffffff;
   box-shadow: 1px 0 1px rgba(100, 100, 100, 2);
+  position: relative;
+  z-index: 9;
 
   .bar-arrow {
     width: 100%;
@@ -65,7 +68,7 @@ export default {
 
   .bar-desc {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
 
     margin: 0;
     padding: 0;

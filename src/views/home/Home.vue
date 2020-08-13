@@ -15,7 +15,7 @@
     <scroll
       class="wrapper"
       ref="scroll"
-      :probeType="0"
+      :probeType="3"
       :pullUpLoad="true"
       @contentScroll="contentScroll"
       @loadMore="loadMore"
@@ -24,7 +24,7 @@
         <home-swiper :banners="banners"></home-swiper>
         <home-recommend :recommends="recommends"></home-recommend>
         <home-feature></home-feature>
-        <home-tab-control  ref="homeTabControl2" :cards="cards" @click="changeTab"></home-tab-control>
+        <home-tab-control ref="homeTabControl2" :cards="cards" @click="changeTab"></home-tab-control>
         <home-goods ref="goods" :type="type"></home-goods>
       </template>
     </scroll>
@@ -35,12 +35,12 @@
 <script>
 import NavBar from "@/components/common/navBar/NavBar";
 import Scroll from "@/components/common/scroll/Scroll";
-import { debounce } from "@/components/common/utils";
 
 import HomeTabControl from "@/components/content/tabControl/TabControl";
 import BackTop from "@/components/content/backTop/BackTop";
 
 import { getHomeMultidata } from "@/network/home";
+import { imgLoadMixin, backTopMixin } from "@/common/mixin";
 
 import HomeSwiper from "./homeContent/HomeSwiper";
 import HomeRecommend from "./homeContent/HomeRecommend";
@@ -53,11 +53,9 @@ export default {
     return {
       banners: [],
       recommends: [],
-      isBack: false,
       type: "fashion",
-      height: 642,
-      isShow: 'hidden',
-      saveY: 0
+      saveY: 0,
+     
     };
   },
   components: {
@@ -70,20 +68,13 @@ export default {
     BackTop,
     HomeGoods,
   },
+  mixins: [imgLoadMixin, backTopMixin],
   created() {
     //   生命周期函数，发起请求可以在组件创建完之后就发起
     this.getHomeData();
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 1000);
-    this.$bus.$on("imgOnLoad", () => {
-      // 防抖函数
-      refresh();
-    });
-    
-  },
-  updated() {
-    // this.$refs.scroll.scroll.refresh();
+  deactived() {
+    this.$bus.$off("imgOnLoad", this.imgRefresh);
   },
   methods: {
     getHomeData() {
@@ -107,15 +98,6 @@ export default {
         },
       ];
     },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0, 1000);
-    },
-    contentScroll(position) {
-      // console.log(window.innerHeight)
-      this.isBack = Math.abs(position.y) > window.innerHeight ? true : false;
-      // console.log(this.$refs.scroll.TabOffsetTop)
-      this.isShow =  this.$refs.scroll.TabOffsetTop <= this.height ? 'hidden' : 'visible';
-    },
     changeTab(index) {
       this.$refs.homeTabControl1.currentIndex = index;
       this.$refs.homeTabControl2.currentIndex = index;
@@ -124,17 +106,10 @@ export default {
     loadMore() {
       this.$refs.goods.getGoodsList(this.type);
       this.$refs.scroll.finishPullUp();
-      // console.log(this.$refs.scroll.scroll);
     },
   },
-  watch: {
-    // [this.$refs.scroll.TabOffsetTop]() {
-    //   console.log(this.$refs.scroll.TabOffsetTop)
-    //   // this.isShow = this.$refs.scroll.TabOffsetTop == this.height
-    // }
-  },
   activated() {
-    // 延迟bug 不要设置为 0ms 
+    // 延迟bug 不要设置为 0ms
     this.$refs.scroll.scrollTo(0, this.saveY, 1);
     this.$refs.scroll.refresh();
   },
@@ -169,7 +144,7 @@ export default {
     left: 0;
     right: 0;
     top: 44px;
-    z-index: 999;
+    z-index: 9;
   }
 
   .wrapper {

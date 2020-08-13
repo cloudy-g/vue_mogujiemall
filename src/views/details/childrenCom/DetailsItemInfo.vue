@@ -45,7 +45,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-bottom: 0.3rem solid #eee;
+  border-bottom: 0.4rem solid #eee;
 
   .item-title {
     font-size: 1.5rem;

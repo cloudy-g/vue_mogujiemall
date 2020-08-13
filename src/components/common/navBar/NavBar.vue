@@ -18,6 +18,7 @@ export default {
     height: 44px;
     line-height: 44px;
     display: flex;
+    width: 100vw;
 
     .left,
     .right{

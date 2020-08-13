@@ -1,5 +1,5 @@
 <template>
-  <swiper-tran class="detail-item" :banners="imgs"></swiper-tran>
+  <swiper-tran class="detail-item" :banners="itemData"></swiper-tran>
 </template>
 
 <script>
@@ -9,7 +9,6 @@ export default {
   name: "DetailItem",
   data() {
     return {
-      imgs: [],
     };
   },
   props: {
@@ -18,11 +17,9 @@ export default {
   components: {
     SwiperTran,
   },
-  mounted() {},
+  mounted() {
+  },
   watch: {
-    itemData(to, from) {
-      this.imgs = to;
-    },
   },
 };
 </script>
@@ -30,5 +27,6 @@ export default {
 <style lang="less" scoped>
 .detail-item {
   height: 300px;
+  width: 100%;
 }
 </style>
