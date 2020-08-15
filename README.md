@@ -304,3 +304,97 @@ export default {
 }
 ```
 
+#### 9.9 顶部样式跟随滚动
+
+- 监听滚动事件 offsetTop ，判断
+
+#### 9.10 底部购物车
+
+- 动画的封装
+- 点击购物车跳转
+
+### 10. 购物车页面
+
+- 顶部栏
+- 底部操作栏
+- 商品列表
+- 点击选中按钮与全选按钮
+- 价格的汇总
+
+### 11 Toast 自定义插件
+
+- ```javascript
+  import Toast from './Toast.vue';
+  
+  const obj = {};
+  
+  // 生成插件过程
+  obj.install = function(Vue) {
+      // 通过 extend方法 生成组件构造函数
+      const toastConstru = Vue.extend(Toast);
+      // 生成一个组件
+      const toast = new toastConstru();
+      // 挂载 $mount 会代替 el 属性,挂载到某个元素上 toast.$el 可以获取当前挂载的DOM元素
+      toast.$mount(document.createElement('div'));
+      // 添加到 body
+      document.body.appendChild(toast.$el);
+  
+      // 将插件挂载到全局
+      Vue.prototype.$toast = toast;
+  }
+  
+  export default obj
+  
+  import toast from './components/common/toast';
+  Vue.use(toast);
+  // use() 的调用会自动调用参数的 install方法 
+  ```
+
+### 12 优化
+
+#### 12.1 fastclick 插件
+
+- 移动端点击 300 ms 的延迟
+
+  ```javascript
+  // 移动端点击事件执行顺序 
+  touchstart - touchmove - touchend - click
+  // 在click之后会继续监听约 300ms 判断是否要双击操作，特别是双击缩放，在桌面网站在移动端的设计中
+  ```
+
+- 点透事件
+
+  ```javascript
+  // 两个相叠的元素, A在B上，A触发 touchstart 事件会隐藏，
+  // 后面B元素就会显示，并且触发其 click 事件
+  ```
+
+- 使用 fastclick 插件
+
+```javascript
+npm i fastclick -S
+import FastClick from 'fastclick';
+FastClick.attach(document.body);
+```
+
+- 原理：在 监听到touchend 之后，使用DOM事件自动 触发click事件 ，并将之后的click事件阻止掉
+
+#### 12.2 vue图片懒加载
+
+- npm i vue-lazyload -S
+
+```javascript
+Vue.use(VueLazyLoad, {
+    loading: require('./imgsrc'),
+    options...
+})
+<img v-lazy="imgSrc" alt=""/>
+```
+
+### 13 响应式原理
+
+####  13.1 数据劫持
+
+#### 13.2 发布者订阅者模式
+
+![image-20200815153044884](C:\Users\GY\AppData\Roaming\Typora\typora-user-images\image-20200815153044884.png)
