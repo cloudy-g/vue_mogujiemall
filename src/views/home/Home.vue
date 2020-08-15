@@ -5,13 +5,13 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <home-tab-control
+    <tab-control
       ref="homeTabControl1"
       :cards="cards"
       :class="{showTab: true}"
       :style="{visibility: isShow}"
       @click="changeTab"
-    ></home-tab-control>
+    ></tab-control>
     <scroll
       class="wrapper"
       ref="scroll"
@@ -24,7 +24,7 @@
         <home-swiper :banners="banners"></home-swiper>
         <home-recommend :recommends="recommends"></home-recommend>
         <home-feature></home-feature>
-        <home-tab-control ref="homeTabControl2" :cards="cards" @click="changeTab"></home-tab-control>
+        <tab-control ref="homeTabControl2" :cards="cards" @click="changeTab"></tab-control>
         <home-goods ref="goods" :type="type"></home-goods>
       </template>
     </scroll>
@@ -36,10 +36,8 @@
 import NavBar from "@/components/common/navBar/NavBar";
 import Scroll from "@/components/common/scroll/Scroll";
 
-import HomeTabControl from "@/components/content/tabControl/TabControl";
-
 import { getHomeMultidata } from "@/network/home";
-import { imgLoadMixin, backTopMixin } from "@/common/mixin";
+import { imgLoadMixin, backTopMixin, tabControlMixin } from "@/common/mixin";
 
 import HomeSwiper from "./homeContent/HomeSwiper";
 import HomeRecommend from "./homeContent/HomeRecommend";
@@ -53,7 +51,7 @@ export default {
       banners: [],
       recommends: [],
       type: "fashion",
-      saveY: 0
+      saveY: 0,
     };
   },
   components: {
@@ -61,11 +59,10 @@ export default {
     HomeSwiper,
     HomeRecommend,
     HomeFeature,
-    HomeTabControl,
     Scroll,
     HomeGoods,
   },
-  mixins: [imgLoadMixin, backTopMixin],
+  mixins: [imgLoadMixin, backTopMixin, tabControlMixin],
   created() {
     //   生命周期函数，发起请求可以在组件创建完之后就发起
     this.getHomeData();
@@ -80,20 +77,6 @@ export default {
         this.banners = res.data.data.banner.list;
         this.recommends = res.data.data.recommend.list;
       });
-      this.cards = [
-        {
-          type: "fashion",
-          title: "流行",
-        },
-        {
-          type: "news",
-          title: "新款",
-        },
-        {
-          type: "handpick",
-          title: "精选",
-        },
-      ];
     },
     changeTab(index) {
       this.$refs.homeTabControl1.currentIndex = index;

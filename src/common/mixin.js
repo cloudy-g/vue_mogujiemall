@@ -2,6 +2,7 @@ import {
   debounce
 } from './utils';
 import BackTop from "@/components/content/backTop/BackTop";
+import TabControl from "@/components/content/tabControl/TabControl";
 
 
 export const imgLoadMixin = {
@@ -58,4 +59,36 @@ export const backTopMixin = {
     }
   },
 
+}
+
+export const tabControlMixin = {
+  data() {
+    return {
+      cards: [],
+    }
+  },
+  components:{
+    TabControl,
+  },
+  methods: {
+    changeTab(index) {
+      this.type = this.cards[index].type;
+    }
+  },
+  created() {
+    this.cards = [
+      {
+        type: "fashion",
+        title: "流行",
+      },
+      {
+        type: "news",
+        title: "新款",
+      },
+      {
+        type: "handpick",
+        title: "精选",
+      },
+    ];
+  }
 }
