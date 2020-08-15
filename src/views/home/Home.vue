@@ -37,7 +37,6 @@ import NavBar from "@/components/common/navBar/NavBar";
 import Scroll from "@/components/common/scroll/Scroll";
 
 import HomeTabControl from "@/components/content/tabControl/TabControl";
-import BackTop from "@/components/content/backTop/BackTop";
 
 import { getHomeMultidata } from "@/network/home";
 import { imgLoadMixin, backTopMixin } from "@/common/mixin";
@@ -54,8 +53,7 @@ export default {
       banners: [],
       recommends: [],
       type: "fashion",
-      saveY: 0,
-     
+      saveY: 0
     };
   },
   components: {
@@ -65,7 +63,6 @@ export default {
     HomeFeature,
     HomeTabControl,
     Scroll,
-    BackTop,
     HomeGoods,
   },
   mixins: [imgLoadMixin, backTopMixin],

@@ -1,13 +1,13 @@
 <template>
   <div class="goods-item" @click="itemClick">
     <div class="item-image">
-      <img :src="info.img" @load="imgLoad" />
+      <img v-lazy="info.img" @load="imgLoad" />
     </div>
     <div class="item-info">
       <div class="item-desc">{{info.title}}</div>
       <div class="item-price">
         <div>
-          <span class="item-price-current">{{info.price | priceFilter}}</span>
+          <span class="item-price-current">{{info.price | priceFormat}}</span>
         </div>
         <div class="item-collect">
           <div class="item-cfav"></div>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { priceFormat } from "@/common/utils";
+
 export default {
   name: "GoodsItem",
   props: {
@@ -30,20 +32,18 @@ export default {
     },
   },
   filters: {
-    priceFilter(price) {
-      return `￥${price}`;
-    },
+    priceFormat,
   },
-  methods:{
+  methods: {
     imgLoad() {
-      this.$bus.$emit('imgOnLoad');
+      this.$bus.$emit("imgOnLoad");
     },
     itemClick() {
       this.$router.push({
         path: `/home/${this.info.iid}`,
-      })
-    }
-  }
+      });
+    },
+  },
 };
 </script>
 

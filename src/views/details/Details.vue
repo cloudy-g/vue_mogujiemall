@@ -1,6 +1,6 @@
 <template>
   <div class="item-details">
-    <details-nav-bar @scrollToPosition="scrollToPosition" class="nav-bar" :iid="iid"></details-nav-bar>
+    <details-nav-bar ref="bar" @scrollToPosition="scrollToPosition" class="nav-bar" :iid="iid"></details-nav-bar>
     <scroll class="content" ref="scroll" :probeType="3" @contentScroll="contentScroll">
       <details-slide :itemData="bannerItem"></details-slide>
       <details-item-info :info="itemInfo"></details-item-info>
@@ -10,7 +10,7 @@
       <details-item-comments ref="comments" :itemComments="itemComments"></details-item-comments>
     </scroll>
     <back-top @click.native="backClick" v-show="isBack"></back-top>
-    <details-tab-bar></details-tab-bar>
+    <cart-tab-bar :iid="iid" :product="product" :imgSrc="detailImages[2]"></cart-tab-bar>
   </div>
 </template>
 
@@ -22,9 +22,8 @@ import DetailsShopInfo from "./childrenCom/DetailsShopInfo";
 import DetailsImages from "./childrenCom/DetailsImages";
 import DetailsItemParams from "./childrenCom/DetailsItemParams";
 import DetailsItemComments from "./childrenCom/DetailsItemComments";
-import DetailsTabBar from "./childrenCom/DetailsTabBar";
+import CartTabBar from '@/components/common/cart/CartTabBar'
 
-import BackTop from "@/components/content/backTop/BackTop";
 import Scroll from "@/components/common/scroll/Scroll";
 
 import { getDetailsData } from "@/network/details";
@@ -34,19 +33,21 @@ import {
   getBanners,
   getItemInfo,
   getShopInfo,
-} from "@/components/content/transformData/detailsData.js";
+  getCartInfo
+} from "@/common/detailsData.js";
 
 export default {
   name: "Details",
   data() {
     return {
-      iid: null,
+      iid: '',
       bannerItem: [],
       itemInfo: {},
       shopInfo: {},
       detailImages: [],
       itemParams: {},
       itemComments: {},
+      product: {},
     };
   },
   components: {
@@ -58,8 +59,7 @@ export default {
     DetailsImages,
     DetailsItemParams,
     DetailsItemComments,
-    BackTop,
-    DetailsTabBar,
+    CartTabBar,
   },
   mixins: [imgLoadMixin, backTopMixin],
   created() {
@@ -82,6 +82,8 @@ export default {
         this.itemParams = data.itemParams.info;
 
         this.itemComments = data.rateInfo;
+
+        this.handleCartData(data.itemInfo);
       });
     },
     getOffsetTop() {
@@ -90,8 +92,12 @@ export default {
       this.itemOffsetTopY.splice(0, 3, 0, params, comment);
     },
     scrollToPosition(index) {
-      this.$refs.scroll.scrollTo(0, -this.itemOffsetTopY[index]+44, 100);
+      this.$refs.scroll.scrollTo(0, -this.itemOffsetTopY[index] + 44, 100);
     },
+    handleCartData(data) {
+        this.product = getCartInfo(data);
+        this.product.num = 1;
+    }
   },
   watch: {
     $route(to, from) {

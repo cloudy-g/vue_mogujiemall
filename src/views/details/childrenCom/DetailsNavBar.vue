@@ -28,7 +28,7 @@ export default {
   name: "DetaisNavBar",
   data() {
     return {
-      desc: ["商品", "参数", "评论", "推荐"],
+      desc: ["商品", "参数", "评论"],
       currentIndex: 0,
     };
   },

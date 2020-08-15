@@ -1,8 +1,7 @@
-import { imgLoadMixin } from '@/common/mixin';
 <template>
   <ul class="list-wrapper">
     <li v-for="item in iamgeList" :key="item">
-      <img :src="item" alt @load="imgLoad"/>
+      <img :src="item"  @load="imgLoad"/>
     </li>
   </ul>
 </template>

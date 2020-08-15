@@ -18,6 +18,10 @@ export function getShopInfo(data) {
     return new ShopInfo(data)
 }
 
+export function getCartInfo(data) {
+    return new CartInfo(data)
+}
+
 class ItemInfo{
     constructor({title, lowPrice, lowNowPrice, cFav, extra}){
         this.title = title;
@@ -36,5 +40,13 @@ class ShopInfo{
         this.cSells = cSells;
         this.cGoods = cGoods;
         this.shopLabels = shopLabels;
+    }
+}
+class CartInfo{
+    constructor({lowNowPrice, title, extra, desc}){
+        this.lowNowPrice = lowNowPrice;
+        this.title = title;
+        this.extra = extra;
+        this.desc = desc;
     }
 }

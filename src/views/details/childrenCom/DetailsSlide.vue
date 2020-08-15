@@ -17,10 +17,6 @@ export default {
   components: {
     SwiperTran,
   },
-  mounted() {
-  },
-  watch: {
-  },
 };
 </script>
 

@@ -11,15 +11,6 @@ export default {
   name: "HomeSwiper",
   data() {
     return {
-      // srcPartic1: {
-      //   src: "",
-      //   link: "",
-      // },
-      // srcPartic2: {
-      //   src: "",
-      //   link: "",
-      // },
-      // singleWidth: 0,
     };
   },
   components: {
@@ -27,18 +18,6 @@ export default {
   },
   props: {
     banners: Array,
-  },
-  beforeUpdate() {
-    // this.initImgs();
-    // this.singleWidth = window.innerWidth;
-  },
-  methods: {
-    // initImgs() {
-    //   this.srcPartic1.src = this.banners[this.banners.length - 1].image;
-    //   this.srcPartic1.link = this.banners[this.banners.length - 1].link;
-    //   this.srcPartic2.src = this.banners[0].image;
-    //   this.srcPartic2.link = this.banners[0].link;
-    // },
   },
 };
 </script>

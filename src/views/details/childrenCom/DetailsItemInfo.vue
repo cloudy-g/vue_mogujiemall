@@ -2,8 +2,8 @@
   <div class="item-info">
     <div class="item-title">{{info.title}}</div>
     <div class="item-price">
-      <div class="item-low-now-price">{{info.lowNowPrice | priceFil}}</div>
-      <div class="item-low-price">{{info.lowPrice | priceFil}}</div>
+      <div class="item-low-now-price">{{info.lowNowPrice | priceFormat}}</div>
+      <div class="item-low-price">{{info.lowPrice | priceFormat}}</div>
       <div class="item-special">今日特价</div>
     </div>
     <div class="item-detail">
@@ -26,15 +26,15 @@
 </template>
 
 <script>
+import { priceFormat } from "@/common/utils";
+
 export default {
   name: "DetailsItemInfo",
   props: {
     info: Object,
   },
   filters: {
-    priceFil(price) {
-      return `￥${price}`;
-    },
+    priceFormat
   },
 };
 </script>
@@ -55,7 +55,7 @@ export default {
 
   .item-price {
     display: flex;
-    margin: 1rem 0 ;
+    margin: 1rem 0;
     .item-low-now-price {
       color: #f40;
       font-size: 2rem;
