@@ -42,7 +42,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   exclude="name,name" 不缓存这些页面
   ```
 
-![image-20200813155821589](C:\Users\GY\AppData\Roaming\Typora\typora-user-images\image-20200813155821589.png)
 
 #### 1.3 点击链接变色
 
