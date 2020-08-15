@@ -396,4 +396,4 @@ Vue.use(VueLazyLoad, {
 
 #### 13.2 发布者订阅者模式
 
-![image-20200815153044884](C:\Users\GY\AppData\Roaming\Typora\typora-user-images\image-20200815153044884.png)
+
